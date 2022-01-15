@@ -1,0 +1,12 @@
+html 
+    head
+        title Restaurants
+
+    body
+        include ./header
+        div(style="text-align: center;")
+            h1 Current Available Restaurants 
+            -var keys = Object.keys(restaurants)
+            each restaurantID in keys
+                a(href="/restaurants/"+restaurantID)= restaurants[restaurantID].name
+                br

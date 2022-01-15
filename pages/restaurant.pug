@@ -1,0 +1,50 @@
+html 
+    head 
+        title Restaurant
+        script(src="/js/restaurant.js")
+
+    body
+        include ./header
+    
+        h2 Restaurant ID: #{restaurant.id}
+        h2 Name: #[input(type="text" id="name" value=restaurant.name)]
+        h2 Delivery Fee: #[input(type="text" id="deliveryFee" value=restaurant.delivery_fee)]
+        h2 Minimum Order: #[input(type="text" id="minOrder" value=restaurant.min_order)]
+        br
+
+        h2 Add Category: 
+        div#newCategories 
+
+        p Category Name:#[input(type="text" id="newCatName")]
+        button(onclick="addCat()") Add Category
+        br
+        
+        h2 Add Item: 
+        div#newItems
+        p Select Category: 
+            select(id="newItemCat")
+                each selection in Object.keys(restaurant.menu)
+                    option(value=selection)= selection
+        
+            
+        p Item Description:#[input(type="text" id="newItemDescription")]
+        p Item Price:#[input(type="text" id="newItemPrice")]
+        p Item Name:#[input(type="text" id="newItemName")]
+        button(onclick="addItem()") Add Item
+
+        h2 Menu:
+        div(id="menu")
+            -var itemID = 0
+            each cat in Object.keys(restaurant.menu) 
+                h2= cat 
+                each item in restaurant.menu[cat]
+                    h5 [#{itemID}] #{item.name} ... $#{item.price}
+                    p= item.description 
+                    -itemID++
+                    br
+
+        button(onclick="sendChanges()") Save Changes
+
+
+        
+        
